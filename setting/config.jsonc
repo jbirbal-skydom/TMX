@@ -1,0 +1,14 @@
+{
+	/****
+	* DATASET PATHS
+	****/
+	"writePort": "COM1",
+    "readPort": "COM2",
+	"rate": 4800,
+    "stopbits": 1,
+    "Parity": "N",
+    "bytes": 8,
+    "timeout": 0,
+    "Duplex": "full"
+    
+}
