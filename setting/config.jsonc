@@ -2,7 +2,7 @@
 	/****
 	* DATASET PATHS
 	****/
-	"writePort": "COM1",
+	"writePort": "COM3",
     "readPort": "COM2",
 	"rate": 4800,
     "stopbits": 1,

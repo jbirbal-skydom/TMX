@@ -35,8 +35,8 @@ def pulse():
     ser.write(wake)
 
 
-#t = threading.Timer(0.4, pulse)
-#t.start() 
+# t = threading.Timer(0.4, pulse)
+# t.start() 
 
 print ('Enter your commands below.\r\nInsert "exit" to leave the application.')
 print (ser.name)  

@@ -1,6 +1,6 @@
 import serial
 import codecs
-from utils.conf import Conf
+from conf import Conf
 args = Conf("setting\config.jsonc")
 
 ser = serial.Serial(
