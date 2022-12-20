@@ -299,7 +299,7 @@ Project Link: [https://github.com/jbirbal-skydom/TMX/](https://github.com/jbirba
 [license-url]: https://github.com/jbirbal-skydom/TMX/blob/master/LICENSE
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://linkedin.com/in/linkedin_username
-[product-screenshot]: images/screenshot.jpg
+[product-screenshot]: images/app.jpg
 [tmx]: images/tmx.jpg
 [product-roadmap-DImg]: images/Drawing1/detectImage.png
 [product-roadmap-Display]: images/Drawing1/Display.png
