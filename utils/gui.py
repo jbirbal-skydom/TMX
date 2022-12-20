@@ -3,6 +3,7 @@ from tkinter import ttk
 import awesometkinter as atk
 from tkinter.messagebox import showinfo
 
+
 class App(tk.Tk):
     def __init__(self):
         super().__init__()
@@ -13,6 +14,9 @@ class App(tk.Tk):
         # 'alt', 'default', or 'classic' work fine on windows
         s = ttk.Style()
         s.theme_use('default')
+
+        showinfo("Welcome", "Any issues please contact Jason @ skydom@zoho.com")
+        
 
         # 3d frame
         f1 = atk.Frame3d(self)
@@ -26,7 +30,7 @@ class App(tk.Tk):
         self.elevbar.pack(padx=20, pady=20)
         self.elevbar.setval = 0
         self.elevbar.units = " %"
-        self.elevbar.set(50)
+        self.elevbar.set(0)
 
         # 3d button
         self.elevdec = atk.Button3d(f1, text='- Elev -')
@@ -42,11 +46,10 @@ class App(tk.Tk):
         # flat radial progressbar for speed
         self.spdbar = atk.RadialProgressbar(f2, fg='green')
         self.spdbar.pack(padx=30, pady=30)
-        self.spdbar.setval = 7
+        self.spdbar.setval = 0
         self.spdbar.units = " MPH"
-        self.spdbar.start()
-        
-        self.spdbar.start()
+        self.spdbar.set (20)
+    
 
         # 3d button
         self.spddec = atk.Button3d(f2, text='- Speed -', command = self.someAction )

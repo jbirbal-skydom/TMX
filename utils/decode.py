@@ -1,7 +1,9 @@
 import serial
-import threading
-from utils.conf import Conf
-args = Conf("setting\config.jsonc")
+import serial.tools.list_ports
+import time
+
+#from utils.conf import Conf
+#args = Conf("setting//config.json")
 
 statuspair= {
     211:193,
@@ -15,15 +17,29 @@ statuspair= {
 
 class com():
     def __init__(self) -> None:
+        self.port = None
+
+        ports = list(serial.tools.list_ports.comports())
+        for p in ports:
+            if 'USB Serial Port' in p.description:
+                if p.hwid[p.hwid.index("PID") + 4:p.hwid.rindex(":")] == "0403":
+                    print("found")
+                    # Connection to port
+
+                    a = p.hwid
+                    b = p.hwid[p.hwid.index("PID") + 4:p.hwid.rindex(":")]
+                    self.port = (p.device)
+                    break
+            self.port = None #args["writePort"]
 
         # configure the serial connections (the parameters differs on the device you are connecting to)
         self.ser = serial.Serial(    
-            port = args["writePort"] , 
-            baudrate=args["rate"],
-            parity=args["Parity"],
-            stopbits=args["stopbits"],
-            bytesize=args["bytes"], 
-            timeout=args["timeout"]
+            port = self.port, 
+            baudrate=4800, #args["rate"],
+            parity= "N", #args["Parity"],
+            stopbits= 1, #args["stopbits"],
+            bytesize= 8, #args["bytes"], 
+            timeout= 1 #args["timeout"]
         )
         self.ser.isOpen()
         self.time = 1
@@ -38,12 +54,23 @@ class com():
 
     def request_data(self, info):
         for k in info.keys():
-            self.ser.write (k.to_bytes(1,byteorder='big'))
+            self.ser.reset_input_buffer()
             replied = 0
+            self.ser.write (k.to_bytes(1,byteorder='big'))
+            if k == 192:
+                expected = 2
+            elif k == 200 or k == 201:
+                expected = 3
+            else: 
+                expected = 5          
             while replied == 0:
                 if (self.ser.in_waiting > 0):
-                    info[k] = self.ser.readline()
-                    replied = 1
+                   info[k] = self.ser.read(expected)
+                   replied = 1
+
+
+
+
        # print (info)
 
     def info (self, mes):
@@ -70,7 +97,7 @@ class com():
         if increment is not None:
             _, curval = self.info(raw) # get set
             reqd = ((curval+increment))  # increment
-            reqd = min(reqd, 10)
+            reqd = min(reqd, 100)
             reqd = max (0, reqd)
             reqd = str(reqd).zfill(4)  # str of value
             for c in reqd:
@@ -87,7 +114,7 @@ class com():
         replied = 0
         while replied == 0:
             if (self.ser.in_waiting > 0):
-                res = self.ser.readline()
+                res = self.ser.read(5)
                 replied = 1
         return res
         
