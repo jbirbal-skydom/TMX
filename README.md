@@ -37,7 +37,7 @@
 <h3 align="center">Detect Raven</h3>
 
   <p align="center">
-    TMX is the serial control interface for the trackmaster treadmil protocol
+    TMX is the serial control interface for the trackmaster treadmill protocol
     <br />
     <a href="https://github.com/jbirbal-skydom/TMX/"><strong>Explore the docs »</strong></a>
     <br />
