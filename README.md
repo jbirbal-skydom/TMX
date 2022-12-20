@@ -65,7 +65,7 @@
     <li>
       <a href="#getting-started">Getting Started</a>
       <ul>
-        <li><a href="#prerequisites">Prerequisites</a></li>
+        <li><a href="# Modifications">Modifications</a></li>
         <li><a href="#installation">Installation</a></li>
       </ul>
     </li>
@@ -275,11 +275,17 @@ Project Link: [https://github.com/jbirbal-skydom/TMX/](https://github.com/jbirba
 
 
 <!-- ACKNOWLEDGMENTS -->
-## Acknowledgments
+## Acknowledgments and References
 
-* []()
-* []()
-* []()
+*  https://www.medwrench.com/documents/view/11197/trackmaster-tmx-425-field-service-manual-part-1-pdf
+  
+* https://www.medwrench.com/documents/equipment/9428/trackmaster-tmx-425)
+* https://archive.org/details/manualzilla-id-5844026/page/5/mode/2up)
+* https://www.manualslib.com/manual/2566968/Trackmaster-Tmx428.html?page=5#manual
+* https://www.manualslib.com/manual/1393524/Trackmaster-Fvx325.html?page=117#manual
+* https://www.raso.name/computers/38-automation/76-trackmaster-treadmill?start=1
+* https://forum.allaboutcircuits.com/threads/trackmaster-tm400-s-treadmill-control.176610/
+* https://www.youtube.com/watch?v=z_J0RO0eSTk&t=25s
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
