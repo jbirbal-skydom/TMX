@@ -2,13 +2,33 @@ import tkinter as tk
 from tkinter import ttk
 import awesometkinter as atk
 from tkinter.messagebox import showinfo
+import sys
 
+
+
+
+class MenuBar(tk.Menu):
+    def __init__(self, parent):
+        tk.Menu.__init__(self, parent)
+
+        fileMenu = tk.Menu(self, tearoff=False)
+        self.add_cascade(label="File",underline=0, menu=fileMenu)
+        fileMenu.add_command(label="Exit", underline=1, command=self.quit)
+
+
+        self.ports = tk.Menu(self, tearoff=False)
+        self.add_cascade(label="Port",underline=0, menu=self.ports)
+
+    def quit(self):
+        sys.exit(0)
 
 class App(tk.Tk):
     def __init__(self):
         super().__init__()
 
-        self.config(background=atk.DEFAULT_COLOR)
+        self.menubar = MenuBar(self)
+        
+        self.config(background=atk.DEFAULT_COLOR, menu=self.menubar)
 
         # it is recommended to select tkinter theme required for things to be right on windows,
         # 'alt', 'default', or 'classic' work fine on windows
@@ -16,6 +36,9 @@ class App(tk.Tk):
         s.theme_use('default')
 
         showinfo("Welcome", "Any issues please contact Jason @ skydom@zoho.com")
+
+        #menu
+        
         
 
         # 3d frame
@@ -61,6 +84,8 @@ class App(tk.Tk):
     def someAction(self):
         my_text = self.spddec.cget('text')
         print(my_text)
+    def donothing():
+        x = 0
 
 
 if __name__ == "__main__":

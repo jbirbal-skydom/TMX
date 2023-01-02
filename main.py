@@ -1,5 +1,6 @@
 from utils.gui import App
 from utils.decode import com
+from utils.scanport import scanner
 
 
 request = {}
@@ -34,10 +35,11 @@ for i in range(197, 206):
 
 
 def pulse(tx):
-    connection.request_data(tx)
-    app.after(400, lambda: pulse(data)) # add recurrent event
-    app.after(1000, lambda: update(app.spdbar, data[195]))
-    app.after(1000, lambda: update(app.elevbar, data[196]))
+    if connection.isConnected():
+        connection.request_data(tx)
+        app.after(400, lambda: pulse(data)) # add recurrent event
+        app.after(1000, lambda: update(app.spdbar, data[195]))
+        app.after(1000, lambda: update(app.elevbar, data[196]))
 
 
 def update(module, raw):
@@ -61,6 +63,12 @@ def change(req ,_raw, increm = None, end_ = None):
 
     res = connection.send(command=req, raw=_raw, increment=increm, end = end_ )  # write to com
     request[req] = res # update dict
+
+def changePort(p)->None:
+    print (connection.port, 'changed to : ', p)
+    connection.connect(p)
+    app.after(100, lambda: pulse(data))
+
 
 
 
@@ -86,6 +94,8 @@ if __name__ == "__main__":
     app.spdinc['command'] = lambda: change("speed", data[195], increm=5, end_="start" )
     app.elevinc['command'] = lambda: change("elevation", data[196], increm=10, end_=None )
     app.elevdec['command'] = lambda: change("elevation", data[196], increm=-10, end_=None )
+    for p in scanner():
+        app.menubar.ports.add_command(label=p.description, underline=1, command= lambda port=p.device: changePort(port) )
     
     app.mainloop()
     

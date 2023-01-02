@@ -43,14 +43,34 @@
 
 import serial.tools.list_ports
 
-ports = list(serial.tools.list_ports.comports())
-for p in ports:
-    print(p)
-    if 'USB Serial Port' in p.description:
-        if p.hwid[p.hwid.index("PID") + 4:p.hwid.rindex(":")] == "0403":
-            print("found")
-            # Connection to port
+def scanner ()->object:
+    ports = list(serial.tools.list_ports.comports())
+    return ports
 
-            a = p.hwid
-            b = p.hwid[p.hwid.index("PID") + 4:p.hwid.rindex(":")]
-            print (p.device)
+def pickPort()->None:
+    ports = list(serial.tools.list_ports.comports())
+    for p in ports:
+        if 'USB Serial Port' in p.description:
+            if p.hwid[p.hwid.index("PID") + 4:p.hwid.rindex(":")] == "0403":
+                print("found")
+                # Connection to port
+
+                a = p.hwid
+                b = p.hwid[p.hwid.index("PID") + 4:p.hwid.rindex(":")]
+                return p.device
+                
+        return None #args["writePort"]
+
+
+if __name__ == "__main__":
+    ports = list(serial.tools.list_ports.comports())
+    for p in ports:
+        print(p)
+        if 'USB Serial Port' in p.description:
+            if p.hwid[p.hwid.index("PID") + 4:p.hwid.rindex(":")] == "0403":
+                print("found")
+                # Connection to port
+
+                a = p.hwid
+                b = p.hwid[p.hwid.index("PID") + 4:p.hwid.rindex(":")]
+                print (p.device)

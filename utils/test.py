@@ -1,7 +1,7 @@
 import random
 import serial
 from conf import Conf
-args = Conf("setting\config.jsonc")
+args = Conf("setting\config.json")
 
 # add data to response
 def resdata(dec)->bytearray:

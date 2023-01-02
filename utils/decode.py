@@ -2,6 +2,7 @@ import serial
 import serial.tools.list_ports
 import time
 
+
 #from utils.conf import Conf
 #args = Conf("setting//config.json")
 
@@ -18,32 +19,54 @@ statuspair= {
 class com():
     def __init__(self) -> None:
         self.port = None
+        self.ser = None
 
         ports = list(serial.tools.list_ports.comports())
-        for p in ports:
-            if 'USB Serial Port' in p.description:
-                if p.hwid[p.hwid.index("PID") + 4:p.hwid.rindex(":")] == "0403":
-                    print("found")
-                    # Connection to port
+        if self.port == None:
+            for p in ports:
+                if 'USB Serial Port' in p.description:
+                    if p.hwid[p.hwid.index("PID") + 4:p.hwid.rindex(":")] == "0403":
+                        print("found")
+                        # Connection to port
 
-                    a = p.hwid
-                    b = p.hwid[p.hwid.index("PID") + 4:p.hwid.rindex(":")]
-                    self.port = (p.device)
-                    break
-            self.port = None #args["writePort"]
+                        a = p.hwid
+                        b = p.hwid[p.hwid.index("PID") + 4:p.hwid.rindex(":")]
+                        self.port = (p.device)
+                        self.connect(self.port)
+                        break
+                self.port = None #args["writePort"]
+            
+
+    def connect(self, p):
+
+        if self.port != None:
+            self.ser.close()
+        self.port = p
 
         # configure the serial connections (the parameters differs on the device you are connecting to)
-        self.ser = serial.Serial(    
-            port = self.port, 
-            baudrate=4800, #args["rate"],
-            parity= "N", #args["Parity"],
-            stopbits= 1, #args["stopbits"],
-            bytesize= 8, #args["bytes"], 
-            timeout= 1 #args["timeout"]
-        )
-        self.ser.isOpen()
-        self.time = 1
-    
+        try: 
+            self.ser = serial.Serial(    
+                port = self.port, 
+                baudrate=4800, #args["rate"],
+                parity= "N", #args["Parity"],
+                stopbits= 1, #args["stopbits"],
+                bytesize= 8, #args["bytes"], 
+                timeout= 1 #args["timeout"]
+            )
+            self.ser.isOpen()
+            self.time = 1
+        except serial.SerialException as e:
+            print ("not connected", e)
+            self.ser = None
+            self.port = None
+
+
+    def isConnected(self):
+        '''Is the computer connected with the MS-2000?'''
+        try:
+            return self.ser.isOpen()
+        except:
+            return False
 
     def pulse(self):
         # t = threading.Timer(self.time, self.pulse)
